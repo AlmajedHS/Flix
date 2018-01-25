@@ -10,6 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    
     @IBOutlet weak var BackDropImageView: UIImageView!
     @IBOutlet weak var PosterImageView: UIImageView!
     @IBOutlet weak var TitleLabel: UILabel!
