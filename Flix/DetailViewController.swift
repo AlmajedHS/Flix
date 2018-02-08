@@ -17,24 +17,18 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var DateLabel: UILabel!
     @IBOutlet weak var overViewLabel: UILabel!
     
-    var movie : [String: Any]?
+    var movie : Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let movie = movie{
-            TitleLabel.text = movie["title"] as! String
-            DateLabel.text = movie["release_date"] as! String
-            overViewLabel.text = movie["overview"] as! String
-            let backDroppathString = movie["backdrop_path"] as! String
-            let posterPathString = movie["poster_path"] as! String
-            let baseUrl = "https://image.tmdb.org/t/p/w500"
             
-            let backDropURL = URL(string: baseUrl+backDroppathString)
-            BackDropImageView.af_setImage(withURL: backDropURL!)
-            let posterURL = URL(string: baseUrl+posterPathString)
-            PosterImageView.af_setImage(withURL: posterURL!)
-            
+            TitleLabel.text = movie.title
+            DateLabel.text = movie.date
+            overViewLabel.text = movie.overview
+            PosterImageView.af_setImage(withURL: movie.posterUrl!)
+            BackDropImageView.af_setImage(withURL: movie.backDropURL!)
             
             
             
@@ -46,6 +40,16 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    class func movies(dictionaries: [[String: Any]]) -> [Movie] {
+        var movies: [Movie] = []
+        for dictionary in dictionaries {
+            let movie = Movie(dictionary: dictionary)
+            movies.append(movie)
+        }
+        
+        return movies
     }
     
 
